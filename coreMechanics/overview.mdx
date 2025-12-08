@@ -1,0 +1,132 @@
+---
+title: "Overview"
+description: "Deep execution-layer behavior and system guarantees."
+---
+
+Learn more on how Stable processes transactions, fees, and protocol-level USDT behavior.
+
+## Core Mechanics Introduction
+
+Stable is a high-performance blockchain that maintains full compatibility with the Ethereum Virtual Machine (EVM), allowing developers to use familiar tools and libraries to build applications. Stable’s core mechanics consist of several key areas designed to provide a robust, efficient, and developer-friendly platform.
+
+### System Architecture
+
+Stable is built on the following core components:
+
+- **Execution Layer**: EVM-compatible smart contract execution environment
+- **Consensus Layer**: Fast and secure transaction finalization consensus mechanism
+- **State Management**: Efficient blockchain state storage and management
+- **Network Layer**: P2P communication and data propagation
+
+### Fee Model
+
+Stable provides a predictable fee structure:
+
+- **Single-component gas model**: Base execution cost only, without priority tips
+- **Fees paid in gUSDT**: Stable and predictable transaction costs
+- **Elimination of fee volatility**: Consistent pricing structure for improved user experience
+
+### Performance and Scalability
+
+- **High throughput**: Capable of processing thousands of transactions per second
+- **Low latency**: Fast transaction confirmation times
+- **Efficient resource utilization**: Optimized execution environment
+
+## Core Features for Developers
+
+### Development Tooling Compatibility
+
+Stable maintains full compatibility with the existing Ethereum development ecosystem:
+
+**Supported Programming Languages:**
+
+- Solidity
+
+**Development Frameworks:**
+
+- Hardhat
+- Foundry
+- Truffle
+
+**Client Libraries:**
+
+- ethers.js
+- web3.js
+- Other JSON-RPC compatible libraries
+
+### JSON-RPC API
+
+Support for standard Ethereum JSON-RPC methods enables existing tools and infrastructure to work seamlessly:
+
+- Full support for eth_* methods
+- Compatibility with existing indexers and monitoring tools
+- Standard transaction format support
+
+### Smart Contract Patterns
+
+- Support for standard token specifications: ERC-20, ERC-721, ERC-1155
+- Proxy patterns and upgradeable contracts
+- Multi-signature and access control mechanisms
+- Event logging and state management
+
+## USDT Integration
+
+### Native USDT Support
+
+One of Stable’s unique features is the native integration of USDT:
+
+- **USDT as gas token**: Transaction fees can be paid directly in USDT (gUSDT)
+- **Cross-chain compatibility**: Seamless USDT movement between chains
+
+### USDT-Specific Features
+
+- **Guaranteed blockspace**: Priority processing for USDT transactions
+- **Transfer aggregator**: Efficient batch transfer processing
+- **Confidential transfers**: Enhanced privacy protection
+
+## System Modules
+
+Stable consists of the following core system modules:
+
+### Bank Module
+
+- Account balance management
+- Token transfers and custody
+- Multi-asset support
+
+### Staking Module
+
+- Validator management
+- Delegation and reward distribution
+- Slashing mechanisms
+
+### Distribution Module
+
+- Block reward distribution
+- Fee redistribution
+- Incentive management
+
+## Security and Finality
+
+### Instant Finality
+- Transactions included in blocks are immediately finalized
+- Elimination of reorganization (reorg) risks
+- High level of transaction certainty
+
+### Security Model
+
+- Use of proven cryptographic primitives
+- Multi-layer security architecture
+- Regular security audits
+
+## Next Steps
+
+To gain a deeper understanding of Stable’s core mechanics, refer to the following documentation:
+
+- [Ethereum Compatibility](): Detailed information on EVM compatibility
+- [Gas Pricing](): Fee model explanation
+- [JSON-RPC API](): API reference documentation
+- [Finality](): Transaction confirmation mechanism
+- [EIP-7702](): Account abstraction support
+
+To start developing, check out the [Quick Start Guide](/quickstart).

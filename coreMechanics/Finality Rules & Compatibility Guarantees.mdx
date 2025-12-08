@@ -1,0 +1,49 @@
+---
+title: "Finality Rules & Compatibility Guarantees"
+description: ""
+---
+
+Stable processes transactions within an EVM-based execution environment. When a transaction is included in a block, its effects are applied to state and become immediately visible to applications, contracts, and indexers.
+
+## Execution Confirmation
+A transaction is considered **confirmed** once:
+
+- It is successfully included in a produced block
+- State changes (balances, storage, events) can be observed through RPC
+
+During the public testnet phase:
+
+- Confirmed state should be treated as valid for application logic
+- Monitoring systems should be used to track block continuity
+
+## Settlement Considerations
+
+Stable provides single-slot finality, meaning transactions are finalized as soon as they are included in a valid block.
+
+**For developers, this ensure:**
+
+- Once a transaction appears in a confirmed block, its state changes are final and irreversible.
+- Applications can safely rely on block inclusion as confirmation of settlement.
+
+**Even with deterministic finality, applications handling financially sensitive flows should:**
+
+- Verify transaction success via RPC or emitted events before proceeding with dependent actions (e.g., unlocks, redemptions).
+- Implement retry and reconciliation logic for automation and batch operations to handle transient submission or RPC errors.
+
+## Compatibility Commitments
+
+Stable intends to maintain a consistent execution surface for developers throughout testnet growth phases.
+
+**Current commitments:**
+
+- Published system module interfaces and execution behavior will remain stable unless explicitly noted
+- Any potentially disruptive changes will be:
+  - Announced in advance
+  - Documented in the Release & Change Log
+  - Accompanied by migration instructions when necessary
+
+Future updates will introduce:
+
+- A formal compatibility policy
+- Change-level classification for developer-facing features
+- Clear handling guidance for version transitions

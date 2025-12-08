@@ -1,0 +1,303 @@
+---
+title: "Distribution"
+description: ""
+---
+
+## Abstract
+
+The <code>distribution</code> precompiled contract acts as a bridge to enable the Stable SDK’s <code>x/distribution</code> module functionality to be used in an EVM environment.
+
+## Contents
+
+1. [Concepts](/coreMechanics/SystemModulesPrecompiles/distribution#concepts)
+2. [Configuration](/coreMechanics/SystemModulesPrecompiles/distribution#configuration)
+3. [Methods](/coreMechanics/SystemModulesPrecompiles/distribution#methods)
+4. [Events](/coreMechanics/SystemModulesPrecompiles/distribution#events)
+
+## Concepts
+
+In <code>distribution</code> precompiled contract, additional checks are made to ensure that the delegator or depositor is a caller.
+
+## Configuration
+
+Contract address and gas cost is predefined.
+
+### Contract Address
+
+- <code></code>
+
+## Methods
+
+### setWithdrawAddress
+
+Sets the address to receive the reward for the token delegated by the delegator to the validator. Sometimes, when the delegator is self-delegated, the validator address is used as the delegator.
+
+<code>SetWithdrawAddress</code> is emitted when the withdrawer address is successfully set.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|delegatorAddress|    address|    the address of the delegator|
+|withdrawerAddress|    address|    the address to receive the reward of delegation|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|success|    bool    |true if the withdrawer address is successfully set|
+
+### withdrawDelegatorRewards
+
+Withdraws the reward to be received by the delegator from the validator. All types of tokens that validator rewards to delegator is withdrawn in a single transaction.
+
+<code>WithdrawDelegatorRewards</code> is emitted when the reward is successfully withdrawn.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|delegatorAddress|    address|    the address of the delegator|
+|validatorAddress|    address|    the address of the validator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|amount|    Coin[]    |rewards of various tokens to be received by the delegator|
+
+<code>Coin</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|denom|    string|    the denom of the reward|
+|amount|    uint256|    the amount of the reward|
+
+### withdrawValidatorCommission
+
+Withdraws the commission of the validator. All types of tokens that validator receives as commission is withdrawn in a single transaction.
+
+<code>WithdrawValidatorCommission</code> is emitted when the commission is successfully withdrawn.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorAddress|    address|    the address of the validator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+amount	Coin[]    commissions of various tokens to be received by the validator
+
+### validatorDistributionInfo
+
+Returns the distribution information representing the reward the validator will receive. Validator can delegate tokens to himself at his own address to acts as a delegator called self-bonded.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorAddress|    address|    the address of the validator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|distributionInfo|    ValidatorDistributionInfo|    distribution information of the validator|
+
+<code>ValidatorDistributionInfo</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|operatorAddress|    address|    the address of the operator of the validator|
+|selfBondRewards|    DecCoin[]|    the self-bonded amount of the validator|
+|commission    |DecCoin[]    |the commission of the validator|
+
+<code>DecCoin</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|denom|    string|    the denom of the reward|
+|amount|    uint256|    the amount of the reward|
+|precision|    uint8|    the precision of the reward|
+
+### validatorOutstandingRewards
+
+Returns the outstanding rewards of the validator. Outstanding rewards indicates total amount of rewards consists of commission and self-bonded rewards of validator and total rewards of delegators. If there is a validator A and delegators B, C, and D delegate to A, Outstanding rewards of validator is the sum of commission and self-bonded rewards of A + rewards of B, C, and D.
+
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorAddress|    address|    the address of the validator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|rewards|    DecCoin[]|    outstanding rewards of the validator|
+
+### validatorCommission
+
+Returns the commission of the validator. This method is used to retrieve the commission of the validator before calling <code>withdrawValidatorCommission</code> method.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorAddress|    address|    the address of the validator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|commission|    DecCoin[]|    commission of the validator|
+
+### validatorSlashes
+
+Returns the history of slashes of the validator between the starting height and ending height. Slashing is the fines imposed when a validator behaves maliciously or violates network rules such as double signing, misbehavior, or not following the chain rules.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorAddress|    address    |the address of the validator|
+|startingHeight|    uint64    |the starting height|
+|endingHeight|    uint64    |the ending height|
+|pageRequest|    PageReq    |the pagination request|
+
+<code>PageReq</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|key    |bytes|    the key of the pagination|
+|offset    |uint64|    the offset of the pagination|
+|limit    |uint64|    the limit of the pagination|
+|countTotal    |bool|    whether to count the total number of pages|
+|reverse    |bool|    whether to reverse the pagination|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|slashes|    ValidatorSlashEvent[]|    slashes of the validator|
+|pagination|    PageResp|    the pagination response|
+
+<code>ValidatorSlashEvent</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorPeriod|    uint64|    the period of the validator|
+|fraction|    Dec    |the fraction of the slash|
+
+<code>Dec</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|value|    uint64|    the value of the Dec|
+|precision|    uint8|    the precision of the Dec|
+
+<code>PageResp</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|nextKey|    bytes|    the next key of the pagination|
+|total|    uint64|    the total number of pages|
+
+### delegationRewards
+
+Returns the rewards that delegator receives from the validator.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|delegatorAddress|    address|    the hex address of the delegator|
+|validatorAddress|    address|    the address of the validator|
+
+#### Outputs
+|Name|    Type|    Description|
+|----|------|--------------|
+|rewards|    DecCoin[]    |rewards that delegator receives from the validator|
+
+### delegationTotalRewards
+
+Returns the total rewards that delegator receives from all validators.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|delegatorAddress|    address|    the hex address of the delegator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|rewards|    DelegationDelegatorReward[]|    total rewards that delegator receives from all validators|
+|total|    DecCoin[]|    the total amount of the rewards|
+
+<code>DelegationDelegatorReward</code> is a struct with the following fields:
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validatorAddress|    address|    the address of the validator|
+|reward|    DecCoin[]|    rewards that delegator receives from the validator|
+
+### delegatorValidators
+
+Returns the validators that delegator is bonded to.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|delegatorAddress|    address|    the hex address of the delegator|
+
+#### Outputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|validators|    string[]|    validators that delegator is bonded to|
+
+### delegatorWithdrawAddress
+
+Returns the address to receive the reward of delegation set by setWithdrawAddress method.
+
+#### Inputs
+
+|Name|    Type|    Description|
+|----|------|--------------|
+|delegatorAddress|    address|    the hex address of the delegator|
+
+#### Outputs
+|Name|    Type|    Description|
+|----|------|--------------|
+|withdrawAddress|    address|    the address to receive the reward of delegation|
+
+## Events
+
+### SetWithdrawAddress
+
+|Name|    Type|    Indexed|    Description|
+|----|------|--------------|-----------|
+|caller|    address|    Y    |the address of the caller (delegator)|
+|withdrawAddress|    address|    N    |the address to receive the reward of delegation|
+
+### WithdrawDelegatorRewards
+
+|Name|    Type|    Indexed|    Description|
+|----|------|--------------|--------|
+|delegatorAddress|    address|    Y    |the address of the delegator|
+|validatorAddress    |address|    Y    |the address of the validator|
+|amount    |uint256|    N    |the amount of the reward|
+
+### WithdrawValidatorCommission
+
+|Name|    Type|    Indexed|    Description|
+|----|------|--------------|-----------|
+|validatorAddress|    address    |Y|    the address of the validator|
+|commission|    uint256    |N    |the total amount of the commission|

@@ -1,0 +1,21 @@
+---
+title: "Gas Pricing"
+description: ""
+---
+
+Stable uses a single-component gas fee model:
+
+- **No priority tip (maxPriorityFeePerGas is ignored)**
+- Fees are based purely on base execution cost
+- Fees are paid in **gUSDT**
+
+Rationale:
+
+- Stable removes fee volatility for predictable payments
+- Eliminates user confusion around “tips” and miner incentives
+
+Developer impact:
+
+- Developers must not rely on **priority fees** for transaction acceleration
+- Wallets should hide or disable tip input fields
+- Gas estimation tooling must reference Stable RPC pricing logic
