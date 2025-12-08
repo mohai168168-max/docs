@@ -1,102 +1,117 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Stable",
+  "name": "Stable Docs",
   "colors": {
     "primary": "#16A34A",
-    "light": "#07C983",
+    "light": "#e8fbf7",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon-16x16.png",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
+        "group": "Introduction",
+        "pages": [
+          "whyStable",
+          "stableForUsers",
+          "tokenomics",
+          "technicalRoadmap",
+          "faq"
+        ]
+      },
+      {
+        "group": "Developers",
+        "pages": [
+          "quickstart",
           {
-            "group": "Getting started",
+            "group": "Core Mechanics",
+            "expanded": false,
             "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "/coreMechanics/overview",
+              "/coreMechanics/EIP-7702",
+              "/coreMechanics/Gas-Pricing",
+              "/coreMechanics/JSON-RPC-API",
+              {
+                "group": "System Modules & Precompiles",
+                "expanded": false,
+                "pages": [
+                  "/coreMechanics/SystemModulesPrecompiles/overview",
+                  "/coreMechanics/SystemModulesPrecompiles/bank",
+                  "/coreMechanics/SystemModulesPrecompiles/distribution",
+                  "/coreMechanics/SystemModulesPrecompiles/staking"
+                ]
+              },
+              "/coreMechanics/Compatibility with the Ethereum Ecosystem",
+              "/coreMechanics/Finality Rules & Compatibility Guarantees"
             ]
           }
         ]
+      },
+      {
+        "group": "Stable Architecture",
+        "pages": [
+          "/stableArchitecture/Tech-Overview",
+          "/stableArchitecture/Key-Features",
+          {
+            "group": "Core Optimization",
+            "expanded": false,
+            "pages": [
+              "/stableArchitecture/coreOptimization/overview",
+              "/stableArchitecture/coreOptimization/Consensus",
+              "/stableArchitecture/coreOptimization/Execution",
+              "/stableArchitecture/coreOptimization/StableDB",
+              "/stableArchitecture/coreOptimization/High-Performance-RPC",
+              {
+                "group": "Appendix",
+                "expanded": false,
+                "pages": [
+                  "/stableArchitecture/coreOptimization/Appendix/Autobahn"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "USDT-Specific Features",
+            "expanded": false,
+            "pages": [
+              "/stableArchitecture/USDTSpecificFeatures/overview",
+              "/stableArchitecture/USDTSpecificFeatures/USDT-as-Gas-Token",
+              "/stableArchitecture/USDTSpecificFeatures/USDT0",
+              "/stableArchitecture/USDTSpecificFeatures/Guaranteed-Blockspace",
+              "/stableArchitecture/USDTSpecificFeatures/USDT-Transfer-Aggregator",
+              "/stableArchitecture/USDTSpecificFeatures/Confidential-Transfer"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Resources",
+        "pages": [
+          "Official-Links"
+        ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/logo.avif",
+    "dark": "/logo/logo-dark.avif"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Read Whitepaper",
+        "href": "https://stabls.ai/whitepaper.pdf"
+      },
+      {
+        "label": "Visit Website",
+        "href": "https://stabls.ai"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/stable"
     }
   }
 }

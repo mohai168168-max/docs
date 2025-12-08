@@ -1,0 +1,97 @@
+---
+title: "Technical Roadmap"
+description: ""
+---
+
+## Stable’s Approach to Optimize Every Layer
+
+The transaction lifecycle, from user submission to confirmed result, passes through several stages. A transaction is first propagated via RPC, stored in the mempool, included in a block, validated through consensus, executed, and finally, the resulting state is persisted in the database. Only after these steps can the user receive the final outcome.
+
+If any part of this process is suboptimal, overall system performance suffers. Stable aims to optimize each stage of the transaction pipeline to maximize performance and minimize latency.
+
+Stable’s core technology will launch in multiple phases, each designed to enhance overall Transactions Per Second (TPS) without compromising transaction finality. Planned optimizations span state database handling, execution layers, consensus mechanisms, and USDT-specific processes.
+
+The sections below outline common performance bottlenecks in current blockchain architectures and Stable’s planned optimizations.
+
+<img src="/images/roadmap.avif"/>
+
+## Phase 1 – Foundational Layer for USDT
+
+### StableBFT
+
+Initially, Stable Blockchain leverages StableBFT, a customized PoS protocol based on CometBFT, to deliver high throughput, low latency, and strong reliability. It offers deterministic finality and fault tolerance up to one-third of validators. In the future, Stable aims to upgrade to a DAG-based consensus to achieve up to 5x faster consensus speed.
+
+
+### USDT as Native Gas
+
+On Stable, gUSDT functions as the native gas token. For USDT0 transfers, users don’t pay any gas fees. For other smart contract operations, users pay gas fees in USDT0 tokens, which are automatically converted to gUSDT by the bundler and paymaster system through Account Abstraction.
+
+### Stable Pay & Stable Name
+
+The Stable Pay is designed to significantly enhance the usability of decentralized finance. Recognizing the steep learning curve associated with existing Web3 wallets, Stable introduces a Web2.5 UX wallet experience that dramatically simplifies onboarding for new users while remaining fully compatible with experienced crypto users. Newcomers benefit from intuitive design and a frictionless setup process (i.e. Social login), while existing users can seamlessly connect their current wallets to start using Stable without migration hassles. To ensure ubiquitous accessibility, the Stable Pay will be available as both a responsive web application and a native mobile app, enabling secure access to digital assets across all devices.
+
+
+Complementing the wallet is the introduction of Stable Name: a user-friendly aliasing system that replaces the cumbersome and error-prone EVM public address format with unique, human-readable identifiers. Users can send and receive tokens effortlessly using their Stable Name, eliminating the need to manage long hexadecimal strings. This approach significantly reduces transactional errors and enhances the overall experience of interacting with crypto assets, making Stable a robust and user-centric entry point into the blockchain ecosystem.
+
+
+
+## Phase 2 – Experience Layer for USDT
+
+### Optimistic Parallel Execution
+
+Real-world telemetry indicates that 60–80% of transactions interact with disjoint states and can be safely executed in parallel. However, most blockchain systems still execute transactions sequentially, leading to unnecessary delays.
+
+Stable will adopt optimistic parallel execution to improve throughput. Transactions are initially executed in parallel under the assumption of no conflicts. Upon detection of conflicts, affected transactions are rolled back and re-executed sequentially. This model enables substantial throughput gains while preserving correctness.
+
+### State DB Optimization
+
+One of the primary bottlenecks in blockchain performance is slow disk I/O. After block execution, the resulting state must be committed and stored. Traditionally, validator nodes wait for the state to be fully stored before proceeding to the next block execution.
+
+Stable optimizes this process by decoupling state commitment from state storage. Validators can commit the latest state in memory which is sufficient for proceeding with block execution, while deferring the storage of historical state to disk. This reduces execution latency.
+
+The use of mmap, a memory-mapped file I/O mechanism, further accelerates storage performance by treating files as in-memory arrays. Stable plans to adopt mmap to handle real-time state commitment in memory while relegating archival state to disk, significantly reducing disk I/O latency and enhancing read/write throughput.
+
+### USDT Transfer Aggregator
+
+To support mass USDT0 transfers, Stable is going to implement aggregating mechanisms. USDT0 transfer transactions will be grouped and processed collectively, reducing per-transaction overhead and improving overall throughput.
+
+### Guaranteed Blockspace
+Enterprises utilizing blockchain infrastructure require predictable transaction latency. Under high network congestion, this predictability can degrade.
+
+Stable addresses this through a dedicated blockspace model that guarantees a fixed portion of block capacity to enterprises. This guarantee is enforced through:
+
+- Validator-Level Customization: Validators reserve space for enterprises.
+
+- Dedicated RPC Nodes: Guaranteed transactions are prioritized via separate mempools and API endpoints.
+
+This model will ensure consistent performance for mission-critical operations, even under adversarial conditions.
+
+## Phase 3 – Full Stack Optimized Layer for USDT
+
+
+### Advanced Consensus with StableBFT on Autobahn
+
+First-generation DAG-based BFT engines like Narwhal and Tusk demonstrate that decoupling data dissemination from consensus ordering can eliminate single-proposer bottlenecks. However, directly porting such systems to CometBFT environments introduces incompatibilities with height-based block semantics and conventional mempool designs.
+
+Autobahn offers a PBFT-on-DAG architecture that integrates more naturally with Stable’s consensus layer. StableBFT, built atop Autobahn, will enable:
+
+- Parallel proposal processing by eliminating the single-leader limitation.
+- Faster finality by separating data propagation from final ordering.
+- Enhanced resilience against network adversities through robust BFT mechanisms.
+
+This advanced consensus design supports much higher throughput based on the internal proof-of-concept, which has demonstrated over 200,000 TPS (Consensus only) in controlled environments.
+
+### StableVM++
+
+StableVM++ will be a high-performance execution engine that replaces the Go-based EVM with a C++ implementation. This change is expected to yield up to a 6x improvement in EVM execution speed, dramatically enhancing processing capability.
+
+### High Performance RPC
+
+High-throughput decentralized applications depend on fast and accurate RPC and indexing services. Stable’s high-performance RPC stack will include:
+
+- Node-Level Enhancements: Real-time chain state processing for immediate RPC responsiveness.
+- Node-integrated Indexer: Low-latency indexing to ensure consistent application-level API performance.
+- Robust Pub/Sub Handling: Scalable WebSocket architecture for reliable subscription and event delivery.
+- Hybrid Load Balancer: Intelligent distribution of traffic based on operation type to maximize resource utilization and reduce bottlenecks.
+
+These optimizations will enable Stable to offer stable and scalable access points for dApps and enterprise users.
