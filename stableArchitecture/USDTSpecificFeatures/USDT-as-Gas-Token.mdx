@@ -1,0 +1,38 @@
+---
+title: "USDT as Gas Token"
+description: ""
+---
+
+## gUSDT & USDT0 on Stable
+
+<img src="/images/usdt-as-native-gas.avif"/>
+
+The Stable Blockchain is dedicated to supporting the USDT stablecoin, and both **gUSDT** and **USDT0** serve as core components of its ecosystem.
+
+- **gUSDT**: On Stable, gUSDT functions as the **native gas token**. However, most users can pay gas fees in USDT0 thanks to Account Abstraction, simplifying the user experience.
+- **USDT0**: USDT0 is an **ERC-20** token designed for seamless integration with DeFi protocols and smart contracts within the Stable ecosystem.
+
+This dual-token structure mirrors the Ethereum network’s relationship between ETH and wETH. Just as ETH is used for gas and wETH for ERC-20 interactions, gUSDT acts as the native asset on Stable, while USDT0 ensures compatibility with smart contracts.
+
+Please be advised that gUSDT is subject to the same blocklist as USDT0, enforced in alignment with the OFAC sanctions list.
+
+Please be advised that gasUSDT is subject to the same blocklist as USDT0, enforced in alignment with the OFAC sanctions list.
+
+## Access to Deep Liquidity from Day 1
+
+<img src="/images/bridging-wrapping.avif"/>
+
+Thanks to USDT0’s OFT standard, users can easily onboard their USDT0 holdings from other networks to Stable via LayerZero. This enables Stable to access deep USDT liquidity from day one.
+
+Most users don’t need to directly acquire gUSDT since the protocol handles gas token conversions automatically through Account Abstraction. However, if needed, users have two options:
+
+- **Gasless Unwrap**: Convert USDT0 to gUSDT on Stable through Account Abstraction.
+- **Destination Gas Conversion**: During the LayerZero bridging process, users can enable the “destination gas convert” feature to automatically receive gUSDT (native gas token) alongside their bridged USDT0.
+
+This streamlined onboarding mechanism ensures that users can interact with Stable immediately without friction.
+
+## Safety Measures for gUSDT
+
+Most users primarily use USDT0 to interact with various applications within the Stable ecosystem. gUSDT serves as the native gas token, but users don’t need to hold it directly thanks to Account Abstraction which automatically handles gas token conversions.
+
+To prevent user confusion and accidental transfers of gUSDT to other networks or CEXs, gUSDT transfers are restricted on Stable. Users are expected to use USDT0 for a wide range of activities within the ecosystem, including sending assets to other networks and CEXs.

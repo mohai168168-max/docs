@@ -1,0 +1,37 @@
+---
+title: "Guaranteed Blockspace"
+description: ""
+---
+
+
+## Business Needs Stable Payments
+As stablecoins continue to evolve, an increasing number of businesses are integrating them into financial operations such as payments, treasury flows, and cross-border settlements. This shift is particularly evident in regions with limited access to stable fiat currencies. In markets like Africa and Latin America, where inflation and currency controls are common, stablecoins are becoming a critical tool for operational resilience.
+
+Stablecoin transactions today primarily occur on general-purpose blockchains such as Ethereum, Solana, and Tron. While these networks offer broad composability and smart contract support, they were not designed with fee predictability or execution guarantees in mind.
+
+- **Ethereum**: On May 1, 2022, The “Otherside” NFT mint by Yuga Labs resulted in over $200M in gas fees burned on Ethereum. Peak gas exceeded 8,000 gwei, leading to unstable and non-deterministic transaction costs across the network.
+- **Other networks**: On low-fee networks such as Solana and Base, the presence of MEV and arbitrage opportunities incentivizes high volumes of transaction spam. These networks often experience excessive load from bots attempting to capture on-chain value, leading to network congestion and degraded performance for legitimate users.
+
+<img src="/images/share-of-gas.avif"/>
+
+For businesses to adopt stablecoin payments at scale, the underlying infrastructure must be optimized for **payment reliability**. This requires predictable transaction latency and fee stability across all conditions. Without these guarantees, stablecoin payments on general-purpose chains will remain unreliable.
+
+## Guaranteed Blockspace
+To ensure stable and reliable payment operations for businesses, Stable will introduce support for **Guaranteed Blockspace**.
+
+Guaranteed Blockspace is a dedicated blockspace allocation model designed to guarantee enterprises a fixed share of block capacity, regardless of broader network conditions. This allows mission-critical transactions—such as payroll, settlement, or supplier payments—to execute with predictable latency and cost.
+
+The guarantee is enforced through the following infrastructure:
+
+- **Guaranteed Mempool**: Validators prioritize guaranteed transactions by pulling them from a dedicated mempool, separate from public traffic.
+
+- **Validator-Level Customization**: Validators reserve a predefined portion of blockspace, ensuring deterministic inclusion.
+
+- **Dedicated RPC Nodes**: Guaranteed Blockspace APIs route transactions through isolated RPC endpoints, reducing contention and enabling consistent throughput.
+
+Guaranteed Blockspace offers the following benefits for users:
+
+- **Exclusive transaction routing** through a dedicated upload path, ensuring prioritized access to blockspace
+- **Guaranteed execution** by securing reserved capacity in every block, regardless of network congestion
+- **Preserved decentralization**, with no compromise to validator openness or network participation
+- **Reliable on-chain performance** for business-critical operations, even under high network load

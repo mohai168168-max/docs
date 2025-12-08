@@ -1,0 +1,33 @@
+---
+title: "Tech Overview"
+description: ""
+---
+
+From the state database, execution, and consensus to USDT-specific optimizations, Stable is designed with a focus on performance, scalability, and reliability. Each component of the stack is optimized to support high-throughput workloads and seamless USDT-native operations across the network.
+
+<img src="/images/futurework.avif"/>
+
+## StableBFT
+Initially, Stable Blockchain leverages **StableBFT**, a customized PoS consensus protocol built on CometBFT, to ensure high throughput, low latency, and strong reliability across the network. To further optimize consensus performance, Stable is planning to decouple data dissemination from the consensus process and implement direct transaction broadcasting to block proposer.
+
+To significantly accelerate consensus, Stable intends to upgrade its protocol to a DAG-based Autobahn. StableBFT, built atop Autobahn, will enable:
+
+- Parallel proposal processing by eliminating the single-leader limitation.
+- Faster finality by separating data propagation from final ordering.
+- Enhanced resilience against network adversities through robust BFT mechanisms.
+
+## Stable EVM
+
+**Stable EVM** is Stable’s Ethereum-compatible execution layer, enabling seamless interaction with the chain using existing Ethereum tools and wallets. To bridge the gap between the Stable EVM and the StableSDK, Stable EVM introduces a set of **precompiles**, enabling EVM smart contracts to call into the core chain logic securely and atomically.
+
+Stable plans to maximize EVM execution performance through the introduction of **StableVM++**, which integrates an alternative EVM implementation such as EVMONE and an **optimistic parallel execution engine** based on Block-STM.
+
+## StableDB
+
+Stable improves blockchain speed by fixing a major bottleneck: slow disk storage after each block. It separates state commitment from storage, allowing blocks to process without delay. With <code>MemDB</code> and <code>VersionDB</code> powered by <code>mmap</code>, recent data is handled in-memory while older data is stored efficiently, boosting overall throughput.
+
+## High Performance RPC
+
+Even if a blockchain is fast, a slow RPC layer can ruin the user experience. Stable addresses this by rethinking the traditional monolithic RPC design, which suffers from resource contention and poor scalability. Instead, it introduces a **split-path architecture** that separates operations based on their function, deploying lightweight, specialized RPC nodes for faster response times.
+
+Future plans include RPC nodes optimized for EVM view calls and native indexer integration for even faster dApp data access.
