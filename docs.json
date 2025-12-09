@@ -84,12 +84,6 @@
             ]
           }
         ]
-      },
-      {
-        "group": "Resources",
-        "pages": [
-          "Official-Links"
-        ]
       }
     ]
   },
@@ -108,10 +102,5 @@
         "href": "https://stabls.ai"
       }
     ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/stable"
-    }
   }
 }
